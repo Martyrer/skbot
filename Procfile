@@ -1,1 +1,1 @@
-web: php ./vendor/amphp/aerys/bin/aerys -c ./ws.php
+web: php ./vendor/amphp/aerys/bin/aerys -c -p$PORT ./ws.php
