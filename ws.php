@@ -1,9 +1,6 @@
 <?php
 
-use Aerys\Host;
-use Aerys\Request;
-use Aerys\Response;
-use Aerys\Router;
+use Aerys\{Host, Request, Response, Router, Console};
 use function Aerys\root;
 
 /** @var Router $router */
@@ -15,6 +12,6 @@ $router = (new Router())
 $root = root(__DIR__ . "/web");
 
 (new Host)
-    ->expose("*", 5445)
+    ->expose("*", getenv('PORT'))
     ->use($router)
     ->use($root);
