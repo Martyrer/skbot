@@ -15,6 +15,6 @@ $router = (new Router())
 $root = root(__DIR__ . "/web");
 
 (new Host)
-    ->expose("*", 80)
+    ->expose("*", 5445)
     ->use($router)
     ->use($root);
