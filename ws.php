@@ -43,30 +43,34 @@ $router = (new Router())
         $conversationId = $requestBody['conversation']['id'];
 
         $url = $serviceUrl . '/v3/conversations/' . $conversationId . '/activities';
-
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode([
+        $data = json_encode(
+            [
                 'type' => 'message',
                 'text' => 'Hello World!',
                 'from' => [
                     'name' => 'Bot',
                 ]
-            ]),
-            CURLOPT_HTTPHEADER => [
-                'Accept' => 'application/json, text/json',
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $token,
-            ],
-            CURLOPT_RETURNTRANSFER => true,
-        ]);
+            ]
+        );
 
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            [
+                CURLOPT_URL => $url,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_HTTPHEADER => [
+                    'Accept: application/json, text/json',
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $token,
+                ],
+                CURLOPT_RETURNTRANSFER => true,
+            ]
+        );
         curl_exec($curl);
         curl_close($curl);
         unset($curl);
-
         $response->setStatus(200);
         $response->end(json_encode(['id' => 'sdfdfsddsdfwe']));
     });
