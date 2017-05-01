@@ -5,7 +5,7 @@ use function Aerys\root;
 
 /** @var Router $router */
 $router = (new Router())
-    ->route("GET", "/", function(Request $request, Response $response) {
+    ->route("POST", "/", function(Request $request, Response $response) {
         $response->end('It Works!');
     });
 
