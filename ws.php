@@ -1,6 +1,6 @@
 <?php
 
-use Aerys\{Host, Request, Response, Router, Console};
+use Aerys\{Host, Request, Response, Router};
 use function Aerys\root;
 
 /** @var Router $router */
@@ -8,8 +8,7 @@ $router = (new Router())
     ->route("POST", "/", function(Request $request, Response $response) {
         $body = yield $request->getBody();
         $requestBody = json_decode($body, true);
-        $response->setStatus(200);
-        $response->end();
+
 
         $serviceUrl = $requestBody['serviceUrl'];
         $conversationId = $requestBody['conversation']['id'];
@@ -56,6 +55,9 @@ $router = (new Router())
         curl_exec($curl);
         curl_close($curl);
         unset($curl);
+
+        $response->setStatus(200);
+        $response->end();
     });
 
 $root = root(__DIR__ . "/web");
